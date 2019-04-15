@@ -3,10 +3,9 @@ const minCss=require("gulp-clean-css");
 const uglify=require("gulp-uglify");
 const server=require("gulp-webserver");
 const sass=require("gulp-sass");
-let fs=require("fs");
-let path=require("path");
-let url=require("url");
-let data=require("./data/infor.json");
+// let fs=require("fs");
+// let path=require("path");
+// let url=require("url");
 gulp.task("devSass",()=>{
     return gulp.src("./src/sass/**/*.scss")
     .pipe(sass())
@@ -23,21 +22,12 @@ gulp.task("devSass",()=>{
             port:8080,
             open:true,
             livereload:true,
-            middleware(req,res,next){
-                let {pathname,query}=url.parse(req.url,true)
-                pathname=pathname=="/"?"index.html":pathname
-                if(pathname=="/favicon.ico"){
-                    return res.end("")
+            proxies:[
+                {
+                    source:"/home",target:"http://localhost:3000/home"
                 }
-                if(path.extname(pathname)){
-                    fs.writeFileSync(path.join(__dirname,"src",pathname))
-                }else{
-                    if(pathname="/home/"){
-                        res.end(JSON.stringify(data))
-                    }
-                }
-            }
-            
+            ]
+          
         }))
     })
     gulp.task("default",gulp.series("devSass","webserver","watching"));
