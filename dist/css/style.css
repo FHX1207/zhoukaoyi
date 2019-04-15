@@ -1,0 +1,1 @@
+*{margin:0;padding:0}body,html{width:100%;height:100%}.wrapper{width:100%;height:100%;display:flex;flex-direction:column}.wrapper .header{width:100%;height:45px;background:#ccc}.wrapper .main{width:100%;flex:1}.wrapper .footer{width:100%;height:45px;background:#ccc}

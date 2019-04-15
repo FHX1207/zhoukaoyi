@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/swiper.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            
+        </header>
+        <section class="main">
+            <div class="banner">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="img/1.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="img/2.jpg" alt=""></div>
+                        <div class="swiper-slide"><img src="img/3.jpg" alt=""></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            <div class="list">
+                <!-- <dl>
+                    <dd><img src="img/2.jpg" alt=""></dd>
+                    <dt>
+                        <p>zhong</p>
+                        <p>zhong</p>
+                        
+                    </dt>
+                </dl> -->
+            </div>
+        </section>
+        <footer class="footer"></footer>
+    </div>
+    <script src="./js/lib/flexible.js"></script>
+    <script src="./js/lib/axios.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/swiper.min.js"></script>
+    <script>
+        let list=document.querySelector(".list")
+        //轮播
+    let swiper=new Swiper(".swiper-container",{
+        autoplay:true,
+        pagination :{
+            "el" :".swiper-pagination"
+        }
+    })
+    //请求数据
+    axios.get("/home").then(res=>{
+        console.log(res.data)
+        render(data)
+    })
+    //渲染数据
+    function render(){
+        let str=""
+        data.forEach(item=>{
+            str+=`
+            <dl>
+                    <dd><img src="img/${item.img}" alt=""></dd>
+                    <dt>
+                        <p>${item.tilte}</p>
+                        <p>${item.lis}</p>
+                        
+                    </dt>
+                </dl>
+            `
+        })
+        list.innerHTML=str
+    }
+
+    
+    
+    </script>
+</body>
+</html>
